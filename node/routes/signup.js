@@ -19,7 +19,10 @@ router.get('/get/',(req,res)=>{
 router.put('/put/:user_id',(req,res,next)=>{
   const promise = Signup.findByIdAndUpdate(
     req.params.user_id,
-    req.body
+    req.body,
+    {
+      new:true
+    }
     );
 
   promise.then((user) => {
