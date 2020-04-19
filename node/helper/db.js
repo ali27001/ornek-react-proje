@@ -14,3 +14,4 @@ module.exports = () => {
    mongoose.Promise = global.Promise
 };
 
+mongoose.set('useCreateIndex', true);

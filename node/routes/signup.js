@@ -15,6 +15,24 @@ router.get('/get/',(req,res)=>{
 
 });
 
+/* update */
+router.put('/put/:user_id',(req,res,next)=>{
+  const promise = Signup.findByIdAndUpdate(
+    req.params.user_id,
+    req.body
+    );
+
+  promise.then((user) => {
+    if(!user)
+      next({message: "Güncellemek istediğin kullanıcı bulunamadı", code: '2'})
+    res.json(user);
+  }).catch((err) => {
+    res.json(err);
+  })
+
+});
+
+
 router.get('/get/:user_id',(req,res,next)=>{
   const promise = Signup.findById(req.params.user_id);
 
