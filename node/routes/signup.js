@@ -7,6 +7,7 @@ const Signup = require("../models/SignUp")
 /* GET users listing. */
 router.get('/get/',(req,res)=>{
   const promise = Signup.find({});
+
   promise.then((data) => {
     res.json(data);
   }).catch((err) => {
@@ -15,6 +16,16 @@ router.get('/get/',(req,res)=>{
 
 });
 
+router.get('/get/:user_id',(req,res)=>{
+  const promise = Signup.findById(req.params.user_id);
+
+  promise.then((user) => {
+    res.json(user);
+  }).catch((err) => {
+    res.json(err);
+  })
+
+});
 
 
 router.post('/add/', (req, res, next) =>{

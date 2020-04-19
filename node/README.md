@@ -1,5 +1,7 @@
 # endpointler
 
-- /signup/  |POST|  {userName,age,password,email}
+- /signup/add/  |POST|  {userName,age,password,email}
+- /signup/get/  |get|    
 
-- /content/  |POST| {userId,title,contentText}
+- /content/add/  |POST| {userId,title,contentText}
+- /content/get/  |get|    
