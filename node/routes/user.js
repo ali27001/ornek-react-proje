@@ -6,7 +6,7 @@ const router = express.Router();
 //Models
 const User = require('../models/User')
 
-router.post('/new', function(req, res, next) {
+router.post('/new', (req, res, next)=> {
   const user = new User({
     name:'asa',
     isManager:true,

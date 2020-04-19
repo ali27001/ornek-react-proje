@@ -5,7 +5,19 @@ var router = express.Router();
 const Signup = require("../models/SignUp")
 
 /* GET users listing. */
-router.post('/', function(req, res, next) {
+router.get('/get/',(req,res)=>{
+  const promise = Signup.find({});
+  promise.then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  })
+
+});
+
+
+
+router.post('/add/', (req, res, next) =>{
   const {userName,age,password,email} = req.body;
 
   const singup = new Signup({ //nesne türetiyoruz
