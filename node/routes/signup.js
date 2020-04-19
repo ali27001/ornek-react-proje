@@ -36,6 +36,20 @@ router.put('/put/:user_id',(req,res,next)=>{
 });
 
 
+/* Delete user */
+router.delete('/delete/:user_id',(req,res,next)=>{
+  const promise = Signup.findByIdAndRemove(req.params.user_id);
+
+  promise.then((user) => {
+    if(!user)
+      next({message: "Silmek istediğiniz kullanıcı bulunamadı", code: '3'})
+    res.json(user);
+  }).catch((err) => {
+    res.json(err);
+  })
+
+});
+
 router.get('/get/:user_id',(req,res,next)=>{
   const promise = Signup.findById(req.params.user_id);
 
