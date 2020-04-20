@@ -9,11 +9,15 @@ const usersRouter = require('./routes/users');
 const userRouter = require('./routes/user');
 const signupRouter = require('./routes/signup');
 const contentRouter = require('./routes/content');
+const authenticateRouter = require('./routes/authenticate');
 
 const app = express();
 
 //db connection
 const db = require('./helper/db.js')();
+//config
+const config = require('./config');
+app.set('api_secret_key',config.api_secret_key); //global olarak atadık
 
 
 
@@ -32,6 +36,7 @@ app.use('/api/users', usersRouter);
 app.use('/user', userRouter);
 app.use('/singup', signupRouter);
 app.use('/content', contentRouter);
+app.use('/authenticate', authenticateRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next)=> {
