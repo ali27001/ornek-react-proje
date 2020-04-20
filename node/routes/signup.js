@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+const bcrypt = require('bcrypt');
 // Models
 const Signup = require("../models/SignUp")
 
@@ -78,19 +79,25 @@ router.get('/top10',(req,res)=>{
 router.post('/add/', (req, res, next) =>{
   const {userName,age,password,email} = req.body;
 
-  const singup = new Signup({ //nesne türetiyoruz
-    userName:userName,
-    age:age,
-    password:password,
-    email:email
+  bcrypt.hash(password, 10).then((hash) => { //salt şifreleme aralıgı
+    // Store hash in your password DB.
+
+    const singup = new Signup({ //nesne türetiyoruz
+      userName:userName,
+      age:age,
+      password:hash,
+      email:email
+    });
+
+    const promise = singup.save();
+    promise.then((data)=>{
+      res.json(data); //başarılı durumunda gösterilecek değer
+    }).catch((err)=>{
+      res.json(err);
+    })
   });
 
-  const promise = singup.save();
-  promise.then((data)=>{
-    res.json(data); //başarılı durumunda gösterilecek değer
-  }).catch((err)=>{
-    res.json(err);
-  })
+
 
 });
 
