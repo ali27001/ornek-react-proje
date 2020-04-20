@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const SignUpSchema = new Schema({
   userName:{
     type:String,
-    required:true
+    required:[true,'`{PATH}` alanı zorunludur.' ]
   },
   age: Number,
   password: String,
