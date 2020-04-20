@@ -50,6 +50,7 @@ router.delete('/delete/:user_id',(req,res,next)=>{
 
 });
 
+/* get user */
 router.get('/get/:user_id',(req,res,next)=>{
   const promise = Signup.findById(req.params.user_id);
 
@@ -62,8 +63,18 @@ router.get('/get/:user_id',(req,res,next)=>{
   })
 
 });
+/* GET users top 10 listing. */
+router.get('/top10',(req,res)=>{
+  const promise = Signup.find({}).limit(10).sort({age:-1});
+  promise.then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  })
 
+});
 
+/* add user */
 router.post('/add/', (req, res, next) =>{
   const {userName,age,password,email} = req.body;
 
