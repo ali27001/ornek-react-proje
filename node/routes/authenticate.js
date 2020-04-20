@@ -7,8 +7,7 @@ const jwt = require('jsonwebtoken');
 /* . */
 router.post('/', function(req, res, next) {
   const {userName, password} = req.body;
-  console.log("userName 1")
-  console.log(userName)
+
 
   Signup.findOne({
     userName: userName
