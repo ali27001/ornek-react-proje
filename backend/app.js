@@ -5,9 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const userRouter = require('./routes/user');
-const signupRouter = require('./routes/signup');
+const signupRouter = require('./routes/users');
 const contentRouter = require('./routes/content');
 const authenticateRouter = require('./routes/authenticate');
 
@@ -26,6 +24,14 @@ const verfyToken = require('./middleware/verify-token');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(function(req,res,next){
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+  next();
+});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,9 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
-app.use('/api/users', usersRouter);
-app.use('/user', userRouter);
-app.use('/singup', signupRouter);
+app.use('/users', signupRouter);
 app.use('/api/', verfyToken);
 app.use('/api/content', contentRouter);
 app.use('/authenticate', authenticateRouter);
