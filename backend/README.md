@@ -1,4 +1,4 @@
-Bu repe projenin backend kısmıdır. Node js (express) ile oluşturulmuştur. 
+Bu repo projenin backend kısmıdır. Node js (express) ile oluşturulmuştur. 
 
 - Install dependencies: `npm install`
 
