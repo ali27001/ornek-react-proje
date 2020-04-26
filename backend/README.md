@@ -1,3 +1,11 @@
+Bu repe projenin backend kısmıdır. Node js (express) ile oluşturulmuştur. 
+
+- Install dependencies: `npm install`
+
+- Start the server: `npm start` 
+
+- Port : `localhost:3000`
+
 ## Endpoints
 
 | Route | HTTP Verb	 | POST body	 | Description	 |
