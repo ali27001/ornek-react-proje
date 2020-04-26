@@ -14,6 +14,7 @@ import {
   Typography
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+const axios = require('axios');
 
 const schema = {
   firstName: {
@@ -186,8 +187,24 @@ const SignUp = props => {
   };
 
   const handleSignUp = event => {
+    console.log(formState.values)
     event.preventDefault();
-    history.push('/');
+    axios.defaults.baseURL = 'http://localhost:3000';
+    axios.post('/singup/add/',formState.values)
+    axios({
+      method: 'Post',
+      url: '/singup/add/',
+      body: {
+        firstName:formState.values.firstName ,
+        lastName:formState.values.lastName ,
+        password:formState.values.password ,
+        email:formState.values.email ,
+      }
+    })
+      .then(res=> console.log(res.data))
+      .catch(err=>console.log(err.response.data));
+
+    //history.push('/');
   };
 
   const hasError = field =>
