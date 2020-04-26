@@ -3,25 +3,11 @@ var router = express.Router();
 
 const bcrypt = require('bcrypt');
 // Models
-const Users = require("../models/Users")
-
-
-/* GET users top 10 listing. */
-router.get('/top10',(req,res)=>{
-  const promise = Users.find({}).limit(10).sort({date:-1});
-  promise.then((data) => {
-    res.json(data);
-  }).catch((err) => {
-    res.json(err);
-  })
-
-});
-
-
+const Signup = require("../models/SignUp")
 
 /* GET users listing. */
-router.get('/',(req,res)=>{
-  const promise = Users.find({});
+router.get('/get/',(req,res)=>{
+  const promise = Signup.find({});
   promise.then((data) => {
     res.json(data);
   }).catch((err) => {
@@ -30,10 +16,9 @@ router.get('/',(req,res)=>{
 
 });
 
-
-/*  update  user*/
-router.put('/:user_id',(req,res,next)=>{
-  const promise = Users.findByIdAndUpdate(
+/* update */
+router.put('/put/:user_id',(req,res,next)=>{
+  const promise = Signup.findByIdAndUpdate(
     req.params.user_id,
     req.body,
     {
@@ -52,10 +37,9 @@ router.put('/:user_id',(req,res,next)=>{
 });
 
 
-
 /* Delete user */
-router.delete('/:user_id',(req,res,next)=>{
-  const promise = Users.findByIdAndRemove(req.params.user_id);
+router.delete('/delete/:user_id',(req,res,next)=>{
+  const promise = Signup.findByIdAndRemove(req.params.user_id);
 
   promise.then((user) => {
     if(!user)
@@ -67,11 +51,9 @@ router.delete('/:user_id',(req,res,next)=>{
 
 });
 
-
-
 /* get user */
-router.get('/:user_id',(req,res,next)=>{
-  const promise = Users.findById(req.params.user_id);
+router.get('/get/:user_id',(req,res,next)=>{
+  const promise = Signup.findById(req.params.user_id);
 
   promise.then((user) => {
     if(!user)
@@ -82,19 +64,27 @@ router.get('/:user_id',(req,res,next)=>{
   })
 
 });
+/* GET users top 10 listing. */
+router.get('/top10',(req,res)=>{
+  const promise = Signup.find({}).limit(10).sort({age:-1});
+  promise.then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  })
 
-
+});
 
 /* add user */
-router.post('/', (req, res, next) =>{
-  const {userName,password,email,firstName,lastName} = req.body;
+router.post('/add/', (req, res, next) =>{
+  const {userName,age,password,email} = req.body;
 
   bcrypt.hash(password, 10).then((hash) => { //salt şifreleme aralıgı
     // Store hash in your password DB.
 
-    const singup = new Users({ //nesne türetiyoruz
-      firstName:firstName,
-      lastName:lastName,
+    const singup = new Signup({ //nesne türetiyoruz
+      userName:userName,
+      age:age,
       password:hash,
       email:email
     });
