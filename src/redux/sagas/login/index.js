@@ -1,4 +1,4 @@
-import { put, call } from 'redux-saga/effects'
+import { put } from 'redux-saga/effects'
 
 import {
     LOGIN
@@ -10,20 +10,24 @@ import {
 } from 'redux/actions'
 
 import {
-    post
+    callHttp
 } from 'api/httpUtil'
+
+import {
+    post
+} from 'api/axiosClient'
 
 export function* login({ payload }) {
     try {
         const { username, password } = payload
 
         //call endpoint
-        const { response } = yield call(post, LOGIN, { user: { username, password } })
+        const { response } = yield callHttp(post, LOGIN, { user: { username, password } })
 
         //set result
         yield put(loginSuccessful(response))
     } catch (error) {
-        // set error 
+        // set error
         yield put(loginFailure(error))
         console.error("Error happened when try to login.")
     }

@@ -1,19 +1,34 @@
-import { takeLatest } from 'redux-saga/effects'
+import { put } from 'redux-saga/effects'
 
-import * as loginAction from '../actions/login'
-import * as loginSaga from './login'
+import {
+    LOGIN
+} from 'api/constants'
 
-export default function* saga() {
-    const relations = [
-        [loginAction, loginSaga]
-    ];
+import {
+    loginSuccessful,
+    loginFailure
+} from 'redux/actions'
 
-    for (const [actions, sagas] of relations) {
-        for (const [actionName, action] of Object.entries(actions)) {
-            const saga = sagas[actionName]
+import {
+    callHttp
+} from 'api/httpUtil'
 
-            if (saga)
-                yield takeLatest(action.getType(), saga)
-        }
+import {
+    post
+} from 'api/axiosClient'
+
+export function* login({ payload }) {
+    try {
+        const { username, password } = payload
+
+        //call endpoint
+        const { response } = yield callHttp(post, LOGIN, { user: { username, password } })
+
+        //set result
+        yield put(loginSuccessful(response))
+    } catch (error) {
+        // set error
+        yield put(loginFailure(error))
+        console.error("Error happened when try to login.")
     }
 }
