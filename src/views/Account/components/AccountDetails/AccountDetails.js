@@ -12,12 +12,14 @@ import {
   Button,
   TextField
 } from '@material-ui/core';
+import  {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles(() => ({
   root: {}
 }));
 
 const AccountDetails = props => {
+  const {t,i18n} = useTranslation();
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -27,7 +29,7 @@ const AccountDetails = props => {
     lastName: 'Zhi',
     email: 'shen.zhi@devias.io',
     phone: '',
-    state: 'Alabama',
+    state: 'tr',
     country: 'USA'
   });
 
@@ -36,6 +38,8 @@ const AccountDetails = props => {
       ...values,
       [event.target.name]: event.target.value
     });
+    i18n.changeLanguage(event.target.value)
+
   };
 
   const states = [
@@ -44,12 +48,12 @@ const AccountDetails = props => {
       label: 'Alabama'
     },
     {
-      value: 'new-york',
-      label: 'New York'
+      value: 'tr',
+      label: 'Türkçe'
     },
     {
-      value: 'san-francisco',
-      label: 'San Francisco'
+      value: 'en',
+      label: 'ingilizce'
     }
   ];
 
@@ -58,6 +62,7 @@ const AccountDetails = props => {
       {...rest}
       className={clsx(classes.root, className)}
     >
+      {t("hi")}
       <form
         autoComplete="off"
         noValidate
