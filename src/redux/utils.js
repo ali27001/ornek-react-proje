@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 export const connectTo = (mapStateToProps, actions, container) => {
     const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch)
     return connect(
-        mapStateToProps,
-        mapDispatchToProps,
+      mapStateToProps,
+      mapDispatchToProps,
     )(container);
 };

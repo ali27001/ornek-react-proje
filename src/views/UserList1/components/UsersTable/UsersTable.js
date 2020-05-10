@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -50,9 +50,16 @@ const UsersTable = props => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
-  const handleSelectAll = event => {
-    const { users } = props;
 
+  useEffect(() => {
+      const request = {
+      }
+
+
+  }, [])
+
+  const handleSelectAll = event => {
+    const { users, users1 } = props;
     let selectedUsers;
 
     if (event.target.checked) {
@@ -121,6 +128,28 @@ const UsersTable = props => {
                   <TableCell>Registration date</TableCell>
                 </TableRow>
               </TableHead>
+
+
+              {/*<TableBody>*/}
+                {/*{users1.slice(0, rowsPerPage).map(user => (*/}
+                  {/*<TableRow*/}
+                    {/*className={classes.tableRow}*/}
+                    {/*hover*/}
+                    {/*key={user.id}*/}
+                    {/*selected={selectedUsers.indexOf(user.id) !== -1}*/}
+                  {/*>*/}
+                    {/*<TableCell>{user.email}</TableCell>*/}
+                    {/*<TableCell>*/}
+                      {/*{user.firstName}, {user.lastName},{' '}*/}
+                    {/*</TableCell>*/}
+                    {/*<TableCell>*/}
+                      {/*{moment(user.date).format('DD/MM/YYYY')}*/}
+                    {/*</TableCell>*/}
+                  {/*</TableRow>*/}
+                {/*))}*/}
+              {/*</TableBody>*/}
+
+
               <TableBody>
                 {users.slice(0, rowsPerPage).map(user => (
                   <TableRow

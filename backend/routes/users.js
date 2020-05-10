@@ -21,7 +21,7 @@ router.get('/top10',(req,res)=>{
 
 /* GET users listing. */
 router.get('/',(req,res)=>{
-  const promise = Users.find({});r
+  const promise = Users.find({});
   promise.then((data) => {
     res.json(data);
   }).catch((err) => {
